@@ -1,0 +1,19 @@
+---
+- name: Create a namespace
+  community.kubernetes.k8s:
+    kubeconfig: "{{ kubeconfig }}"
+    name: ansible
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Get information about the namespace
+  community.kubernetes.k8s_info:
+    kubeconfig: "{{ kubeconfig }}"
+    kind: Namespace
+    name: ansible
+  register: ns_info
+
+- name: Print the namespace information
+  debug:
+    msg: "{{ ns_info.resources }}"

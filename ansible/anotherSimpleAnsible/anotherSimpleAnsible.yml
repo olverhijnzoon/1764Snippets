@@ -1,0 +1,10 @@
+---
+- name: Kubernetes Playbook
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - defaults/main.yml
+
+  roles:
+    - create_namespace
