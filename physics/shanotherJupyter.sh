@@ -13,12 +13,21 @@ pip3 install matplotlib
 # scientific
 pip3 install scipy
 
-book_dir="anotherJupyterBook"
+book_dir="dirac_delta"
 mkdir -p "$book_dir"
 
 # call py script to create a notebook
-python3 anotherJupyter.py "$book_dir/basic_plot.ipynb"
+python3 pyanotherJupyter.py "$book_dir/$book_dir.ipynb"
+
+cd "$book_dir"
+
+# Create Makefile
+cat <<EOF >Makefile
+BOOK=dirac_delta
+run:
+	jupyter-lab \$(BOOK).ipynb
+EOF
 
 # launch JupyterLab with it
 echo "Launching JupyterLab..."
-jupyter-lab "$book_dir"
+make
