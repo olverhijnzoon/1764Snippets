@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ignition-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ignition
+  template:
+    metadata:
+      labels:
+        app: ignition
+    spec:
+      containers:
+      - name: ignition-test
+        image: localhost/ignition-edge-restore:20231126
+        args:
+          - "-n"
+          - "ignition-edge -test"
+          - "-a"
+          - "localhost"
+          - "-h"
+          - "9088"
+          - "-s"
+          - "9043"
+          - "-r"
+          - "/tmp/backup/ignition-edge-test.gwbk"
+        env:
+        - name: ACCEPT_IGNITION_EULA
+          value: "Y"
+        - name: IGNITION_EDITION 
+          value: "edge"
+        - name: GATEWAY_ADMIN_USERNAME 
+          value: criticaladmin
+        - name: GATEWAY_ADMIN_PASSWORD
+          value: supersafe0
+        ports:
+        - containerPort: 9088
