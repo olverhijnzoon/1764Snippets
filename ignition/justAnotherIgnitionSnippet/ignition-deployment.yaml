@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ignition-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ignition
+  template:
+    metadata:
+      labels:
+        app: ignition
+    spec:
+      containers:
+      - name: ignition-test
+        image: inductiveautomation/ignition:8.1.30
+        args:
+          - "-n"
+          - "docker-test"
+          - "-a"
+          - "localhost"
+          - "-h"
+          - "9088"
+          - "-s"
+          - "9043"
+        ports:
+        - containerPort: 9088
