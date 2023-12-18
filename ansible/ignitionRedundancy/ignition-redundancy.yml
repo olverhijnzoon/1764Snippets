@@ -1,0 +1,13 @@
+---
+- name: Ignition Redundancy Snippet Playbook
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    # magic numbers here
+    - defaults/main.yml
+
+  roles:
+    - create_namespace
+    - deploy_ignition
+    # - configure_redundancy

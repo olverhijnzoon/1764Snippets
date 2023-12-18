@@ -1,0 +1,151 @@
+---
+- name: Deploy Ignition gateway
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        namespace: ignition
+        name: ignition-deployment-first
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: ignition
+        template:
+          metadata:
+            labels:
+              app: ignition
+          spec:
+            containers:
+              - name: ignition-test
+                image: inductiveautomation/ignition:8.1.30
+                args:
+                  - "-n"
+                  - "ignition-redundancy"
+                  - "-a"
+                  - "localhost"
+                  - "-h"
+                  - "9088"
+                  - "-s"
+                  - "9043"
+                env:
+                  - name: ACCEPT_IGNITION_EULA
+                    value: "Y"
+                  - name: IGNITION_EDITION 
+                    value: "standard"
+                  - name: GATEWAY_ADMIN_USERNAME 
+                    value: criticaladmin
+                  - name: GATEWAY_ADMIN_PASSWORD
+                    value: supersafe0
+                ports:
+                  - containerPort: 9088
+
+- name: Deploy Ignition service
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ignition-service
+        namespace: ignition
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/path: "/"
+      spec:
+        type: NodePort
+        selector:
+          app: ignition
+        ports:
+          - protocol: TCP
+            port: 8088
+            targetPort: 8088
+            nodePort: 30088
+
+- name: Deploy Ignition gateway 2
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        namespace: ignition
+        name: ignition-deployment-second
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: ignition-second
+        template:
+          metadata:
+            labels:
+              app: ignition-second
+          spec:
+            containers:
+              - name: ignition-test
+                image: inductiveautomation/ignition:8.1.30
+                args:
+                  - "-n"
+                  - "ignition-redundancy"
+                  - "-a"
+                  - "localhost"
+                  - "-h"
+                  - "9088"
+                  - "-s"
+                  - "9043"
+                env:
+                  - name: ACCEPT_IGNITION_EULA
+                    value: "Y"
+                  - name: IGNITION_EDITION 
+                    value: "standard"
+                  - name: GATEWAY_ADMIN_USERNAME 
+                    value: criticaladmin
+                  - name: GATEWAY_ADMIN_PASSWORD
+                    value: supersafe0
+                ports:
+                  - containerPort: 9088
+
+- name: Deploy Ignition service 2
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ignition-service-second
+        namespace: ignition
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/path: "/"
+      spec:
+        type: NodePort
+        selector:
+          app: ignition-second
+        ports:
+          - protocol: TCP
+            port: 8089
+            targetPort: 8088
+            nodePort: 30089
+
+- name: Deploy Ignition Gateway Network port fix
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ignition-service-gateway-1
+        namespace: ignition
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/path: "/"
+      spec:
+        selector:
+          app: ignition
+        ports:
+          - protocol: TCP
+            port: 8060
+            targetPort: 8060
+...
