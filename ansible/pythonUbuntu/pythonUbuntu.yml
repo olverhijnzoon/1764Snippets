@@ -1,0 +1,9 @@
+---
+- name: Install Python on Ubuntu
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Python 3
+      apt:
+        name: python3
+        state: latest
