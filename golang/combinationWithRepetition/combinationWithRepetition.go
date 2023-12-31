@@ -19,8 +19,8 @@ func permutation(n, r int) int {
 	return factorial(n) / factorial(n-r)
 }
 
-func combinationWithRepetition(n, r int) int {
-	return factorial(n+2*r-2) / (factorial(r) * factorial(n+r-2))
+func combinationWithRepetition(k, r int) int {
+	return factorial(k) / (factorial(r) * factorial(k-r))
 }
 
 func main() {
