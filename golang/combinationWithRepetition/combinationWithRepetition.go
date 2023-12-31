@@ -20,7 +20,7 @@ func permutation(n, r int) int {
 }
 
 func combinationWithRepetition(n, r int) int {
-	return factorial(n+r-1) / (factorial(r) * factorial(n-1))
+	return factorial(n+2*r-2) / (factorial(r) * factorial(n+r-2))
 }
 
 func main() {
