@@ -44,9 +44,12 @@ func main() {
 
 	gns := NewGNS()
 
-	gns.AddRecord("example", "127.0.0.1", "A", 3600)
+	// Add a record of type "PKEY" GNS zone delegation
+	gns.AddRecord("example", "127.0.0.1", "PKEY", 3600)
+	// Add a record of type "NICK" GNS zone nickname
+	gns.AddRecord("nickname", "1764SnippetsZone", "NICK", 3600)
 
-	record, ok := gns.GetRecord("example")
+	record, ok := gns.GetRecord("nickname")
 	if ok {
 		fmt.Printf("Record: %v\n", record)
 	} else {
