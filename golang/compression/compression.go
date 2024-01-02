@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"compress/flate"
 	"compress/gzip"
 	"compress/zlib"
 	"fmt"
@@ -15,7 +16,7 @@ func main() {
 	/*
 		This code demonstrates how to compress and decompress data using gzip, and zlib. It creates a byte slice of original data, and then compresses and decompresses the data using each of the algorithms. Finally, it prints the original data and the decompressed data for each algorithm to verify that the compression and decompression worked correctly.
 
-		This is slightly modified version of the original 42Snippets golang compression snippet "Compression Algorithms".
+		This is a slightly modified version of the original 42Snippets golang compression snippet "Compression Algorithms".
 	*/
 
 	// Define the input data
@@ -30,22 +31,6 @@ func main() {
 	}
 	if err := gzipWriter.Close(); err != nil {
 		fmt.Println("Error closing gzip writer:", err)
-		return
-	}
-
-	// Compress the data using zlib
-	var zlibBuf bytes.Buffer
-	zlibWriter, err := zlib.NewWriterLevel(&zlibBuf, zlib.BestCompression)
-	if err != nil {
-		fmt.Println("Error creating zlib writer:", err)
-		return
-	}
-	if _, err := zlibWriter.Write(input); err != nil {
-		fmt.Println("Error compressing data with zlib:", err)
-		return
-	}
-	if err := zlibWriter.Close(); err != nil {
-		fmt.Println("Error closing zlib writer:", err)
 		return
 	}
 
@@ -65,6 +50,22 @@ func main() {
 		return
 	}
 
+	// Compress the data using zlib
+	var zlibBuf bytes.Buffer
+	zlibWriter, err := zlib.NewWriterLevel(&zlibBuf, zlib.BestCompression)
+	if err != nil {
+		fmt.Println("Error creating zlib writer:", err)
+		return
+	}
+	if _, err := zlibWriter.Write(input); err != nil {
+		fmt.Println("Error compressing data with zlib:", err)
+		return
+	}
+	if err := zlibWriter.Close(); err != nil {
+		fmt.Println("Error closing zlib writer:", err)
+		return
+	}
+
 	// Decompress the zlib-compressed data
 	zlibReader, err := zlib.NewReader(&zlibBuf)
 	if err != nil {
@@ -81,8 +82,37 @@ func main() {
 		return
 	}
 
+	// Compress the data using flate
+	var flateBuf bytes.Buffer
+	flateWriter, err := flate.NewWriter(&flateBuf, flate.BestCompression)
+	if err != nil {
+		fmt.Println("Error creating flate writer:", err)
+		return
+	}
+	if _, err := flateWriter.Write(input); err != nil {
+		fmt.Println("Error compressing data with flate:", err)
+		return
+	}
+	if err := flateWriter.Close(); err != nil {
+		fmt.Println("Error closing flate writer:", err)
+		return
+	}
+
+	// Decompress the flate-compressed data
+	flateReader := flate.NewReader(&flateBuf)
+	var flateOutput bytes.Buffer
+	if _, err := io.Copy(&flateOutput, flateReader); err != nil {
+		fmt.Println("Error decompressing data with flate:", err)
+		return
+	}
+	if err := flateReader.Close(); err != nil {
+		fmt.Println("Error closing flate reader:", err)
+		return
+	}
+
 	// Print the results
 	fmt.Print("Original data:", string(input))
 	fmt.Print("Gzip-decompressed data:", gzipOutput.String())
 	fmt.Print("Zlib-decompressed data:", zlibOutput.String())
+	fmt.Print("Flate-decompressed data:", flateOutput.String())
 }
