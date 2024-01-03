@@ -5,7 +5,6 @@ run_py: build_py
 
 build_py:
 	pip3 install tensorflow
-	echo "Python script ready to be run"
 
 clean_py:
 	rm -f $(BINARY).py
