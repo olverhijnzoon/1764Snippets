@@ -48,7 +48,6 @@ def play():
         player_move = input("Enter your move (rock, paper, scissors): ")
         ai_move = ai.predict()
         print(f"AI played: {ai_move}")
-        # determine winner...
         if player_move == 'rock' and ai_move == 'scissors':
             player_score += 1
             reward = 1
