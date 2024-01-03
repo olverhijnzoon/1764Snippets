@@ -1,2 +1,2 @@
-# Mark all files in a directory as vendored
-physics/dirac_delta/* linguist-documentation
+physics/dirac_delta/dirac_delta.ipynb linguist-documentation
+physics/anotherJupyterBook/basic_plot.ipynb linguist-documentation
