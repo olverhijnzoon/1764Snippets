@@ -1,0 +1,2 @@
+# Mark all files in a directory as vendored
+physics/* linguist-vendored
