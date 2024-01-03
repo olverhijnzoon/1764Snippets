@@ -1,2 +1,4 @@
 physics/dirac_delta/dirac_delta.ipynb linguist-documentation
 physics/anotherJupyterBook/basic_plot.ipynb linguist-documentation
+physics/** linguist-documentation
+*.ipynb linguist-documentation
