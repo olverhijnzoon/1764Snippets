@@ -3,7 +3,7 @@ import numpy as np
 import pyautogui
 
 # Load YOLO
-net = cv2.dnn.readNet("yolov7x.weights", "yolov7x.cfg")
+net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers().flatten()]
 

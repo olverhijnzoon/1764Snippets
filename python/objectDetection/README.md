@@ -1,1 +1,1 @@
-Please note that you need to have the YOLO weights and configuration files (yolov3.weights and yolov3.cfg) in the same directory as your Python script. You can download these files from the official YOLO website.
+Please note that you need to have the YOLO weights and configuration files (yolov7x.weights and yolov7x.cfg) in the same directory as your Python script
