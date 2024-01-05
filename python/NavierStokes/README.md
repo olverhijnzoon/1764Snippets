@@ -1,0 +1,1 @@
+This snippet is about a basic 2D Navier Stokes implementation with NumPy and MLX to somehow compare its usage. The simulation seems to be not entirely correct - at least I have my doubts. It is also not meant to be a comparison MLX vs NumPy - I am playing around with its usage here.
