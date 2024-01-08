@@ -10,8 +10,12 @@ import (
 
 func main() {
 
-	fmt.Println("# 42Snippets")
+	fmt.Println("# 1764Snippets")
 	fmt.Println("## Golang Hashicorp Vault Client")
+
+	/*
+		This snippets is about a simple Hashicorp Vault deployment to have a running instance to run a client against. The client in this snippet is about showcasing the usage of the Vault API in Golang by creating some secrets in a secret engine. It is a slightly modified version of the original 42Snippets golanghashicorpvault snippet "Golang Hashicorp Vault Client".
+	*/
 
 	// Get the Vault token from log - I know
 	vaultToken := "s.H4zL3fJwBe2AuebW6GkLmUUf"
