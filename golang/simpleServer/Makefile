@@ -1,4 +1,4 @@
-BINARY=HTTPRESTServer
+BINARY=simpleServer
 
 run_go: build_go
 	./$(BINARY)X
