@@ -1,11 +1,10 @@
 BINARY=edwards25519
-build_go:
-	go build -o $(BINARY)X $(BINARY).go
 
-run_go:
+run_go: build_go
 	./$(BINARY)X
 
-god: build_go run_go
+build_go:
+	go build -o $(BINARY)X $(BINARY).go
 
 clean_go:
 	rm -f $(BINARY)
