@@ -3,3 +3,4 @@
 yolov*
 coco.names
 .terraform
+.terraform.lock.hcl
