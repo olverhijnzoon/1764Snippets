@@ -1,9 +1,9 @@
 terraform {
-  required_version = "~> 1.5.0"
+  required_version = "~> 1.5.7"
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 4.40"
+      version = "~> 5.11.0"
     }
   }
 }
@@ -15,7 +15,7 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "terraform_state" {
-  name     = "42snippets-state-bucket"
+  name     = "1764snippets-state-bucket"
   location = "EU"
 }
 
@@ -43,7 +43,7 @@ resource "google_project_iam_member" "logs_writer" {
 }
 
 resource "google_compute_instance" "default" {
-  name         = "snippets42"
+  name         = "snippets1764"
   machine_type = var.machine_type
   tags         = ["http-server"]
 
@@ -115,6 +115,7 @@ resource "google_compute_firewall" "default" {
 }
 
 resource "google_monitoring_uptime_check_config" "default" {
+  project = var.project
   display_name = "uptime-check"
   timeout       = "10s"
   period        = "60s"
@@ -127,7 +128,7 @@ resource "google_monitoring_uptime_check_config" "default" {
   monitored_resource {
     type = "uptime_url"
     labels = {
-      project_id = "snippets-390309"
+      project_id = var.project
       # Reference the external IP of the compute instance
       host       = google_compute_instance.default.network_interface[0].access_config[0].nat_ip
     }

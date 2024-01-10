@@ -9,8 +9,9 @@ windows_based_sli {
     window_period = "60s"
     metric_sum_in_range {
       time_series = join(" AND ", [
-        "metric.type=\"workload.googleapis.com/apache.workers\"",
-        "resource.type=\"gce_instance\"",
+        # There seems to be a new API now and this did not work on first attempt but should be close
+        "metric.type=\"agent.googleapis.com/apache/idle_workers\"",
+        "resource.label.instance_id=\"4284582424701292929\"",
       ])
       range {
         min = 50

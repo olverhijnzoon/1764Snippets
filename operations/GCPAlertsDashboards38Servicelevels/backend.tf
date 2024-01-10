@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "42snippets-state-bucket"
+    bucket  = "1764snippets-state-bucket"
     prefix  = "terraform/state"
   }
 }
