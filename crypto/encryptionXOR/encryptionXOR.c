@@ -56,8 +56,13 @@ void xorChainBlockDecrypt(char *ciphertext, const char *decryptionKey, int ciphe
 }
 
 int main() {
+
     printf("1764Snippets\n");
     printf("Crypto XOR Encryption Chain\n");
+
+    /*
+        This snippet demonstrates an XOR encryption, which is relatively basic because it can be easily reversed by XORing with the same key ~ "symmetric". The chained version presented in the second part of the snippet should not be used in production either, but it (at least) offers an implementation of a simplified Cipher Block Chaining (CBC) operation.
+    */
 
     // Demonstrating simple XOR encryption and decryption
     char simplePlaintext[] = "1764Snippets";
@@ -76,20 +81,20 @@ int main() {
     printf("Decrypted text: %s\n", simplePlaintext);
 
     // Demonstrating XOR Chain Block Encryption and Decryption
-    char complexPlaintext[] = "1764Snippets, the successor to the 42Snippets series/repository, boldly multiplies the ordinary.";
-    const char complexKey[BLOCK_SIZE] = "key12345"; // Ensure this key is exactly BLOCK_SIZE characters
-    int complexTextLength = strlen(complexPlaintext);
+    char chainPlaintext[] = "1764Snippets, the successor to the 42Snippets series/repository, boldly multiplies the ordinary.";
+    const char chainKey[BLOCK_SIZE] = "key12345"; // Ensure this key is exactly BLOCK_SIZE characters
+    int chainTextLength = strlen(chainPlaintext);
 
-    printf("Original text: %s\n", complexPlaintext);
-    xorChainBlockEncrypt(complexPlaintext, complexKey, complexTextLength);
+    printf("Original text: %s\n", chainPlaintext);
+    xorChainBlockEncrypt(chainPlaintext, chainKey, chainTextLength);
     printf("Encrypted text: ");
-    for (int i = 0; i < complexTextLength; ++i) {
-        printf("%02x", (unsigned char)complexPlaintext[i]);
+    for (int i = 0; i < chainTextLength; ++i) {
+        printf("%02x", (unsigned char)chainPlaintext[i]);
     }
     printf("\n");
 
-    xorChainBlockDecrypt(complexPlaintext, complexKey, complexTextLength);
-    printf("Decrypted text: %s\n", complexPlaintext);
+    xorChainBlockDecrypt(chainPlaintext, chainKey, chainTextLength);
+    printf("Decrypted text: %s\n", chainPlaintext);
 
     return 0;
 }
