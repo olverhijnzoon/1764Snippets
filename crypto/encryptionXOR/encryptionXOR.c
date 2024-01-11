@@ -1,95 +1,95 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BLOCK_SIZE 8
+#define BLOCK_SIZE 8 // Define the block size for block encryption
 
-void xorEncrypt(char *text, char *key) {
-    int textLen = strlen(text);
-    int keyLen = strlen(key);
+// Function to perform simple XOR encryption
+void simpleXorEncrypt(char *plaintext, char *encryptionKey) {
+    int plaintextLength = strlen(plaintext);
+    int keyLength = strlen(encryptionKey);
 
-    for (int i = 0; i < textLen; i++) {
-        text[i] = text[i] ^ key[i % keyLen];
+    // XOR each character of the plaintext with the encryption key
+    for (int i = 0; i < plaintextLength; i++) {
+        plaintext[i] = plaintext[i] ^ encryptionKey[i % keyLength];
     }
 }
 
-void xorOperation(char *block, const char *key) {
+// Function to perform XOR operation on a block of text with a key
+void xorBlockOperation(char *block, const char *key) {
     for (int i = 0; i < BLOCK_SIZE; ++i) {
         block[i] = block[i] ^ key[i];
     }
 }
 
-void xorChainBlockEncrypt(char *text, const char *key, int textLen) {
-    char prevBlock[BLOCK_SIZE];
-    memset(prevBlock, 0, BLOCK_SIZE); // Initialization Vector (IV)
+// Function to perform XOR Chain Block Encryption
+void xorChainBlockEncrypt(char *plaintext, const char *encryptionKey, int plaintextLength) {
+    char previousBlock[BLOCK_SIZE];
+    memset(previousBlock, 0, BLOCK_SIZE); // Initialize with zeros as the initial vector
 
-    for (int i = 0; i < textLen; i += BLOCK_SIZE) {
+    for (int i = 0; i < plaintextLength; i += BLOCK_SIZE) {
         for (int j = 0; j < BLOCK_SIZE; ++j) {
-            if (i + j < textLen) {
-                text[i + j] = text[i + j] ^ prevBlock[j];
+            if (i + j < plaintextLength) {
+                plaintext[i + j] = plaintext[i + j] ^ previousBlock[j];
             }
         }
-        xorOperation(&text[i], key);
-        memcpy(prevBlock, &text[i], BLOCK_SIZE); // Copy current encrypted block
+        xorBlockOperation(&plaintext[i], encryptionKey);
+        memcpy(previousBlock, &plaintext[i], BLOCK_SIZE); // Copy current encrypted block for next iteration
     }
 }
 
-void xorChainBlockDecrypt(char *text, const char *key, int textLen) {
-    char prevBlock[BLOCK_SIZE], tempBlock[BLOCK_SIZE];
-    memset(prevBlock, 0, BLOCK_SIZE); // IV
+// Function to perform XOR Chain Block Decryption
+void xorChainBlockDecrypt(char *ciphertext, const char *decryptionKey, int ciphertextLength) {
+    char previousBlock[BLOCK_SIZE], tempBlock[BLOCK_SIZE];
+    memset(previousBlock, 0, BLOCK_SIZE); // Initialize with zeros as the initial vector
 
-    for (int i = 0; i < textLen; i += BLOCK_SIZE) {
-        memcpy(tempBlock, &text[i], BLOCK_SIZE); // Copy current encrypted block
-        xorOperation(&text[i], key);
+    for (int i = 0; i < ciphertextLength; i += BLOCK_SIZE) {
+        memcpy(tempBlock, &ciphertext[i], BLOCK_SIZE); // Copy current encrypted block before decrypting
+        xorBlockOperation(&ciphertext[i], decryptionKey);
 
         for (int j = 0; j < BLOCK_SIZE; ++j) {
-            if (i + j < textLen) {
-                text[i + j] = text[i + j] ^ prevBlock[j];
+            if (i + j < ciphertextLength) {
+                ciphertext[i + j] = ciphertext[i + j] ^ previousBlock[j];
             }
         }
-        memcpy(prevBlock, tempBlock, BLOCK_SIZE); // Copy original encrypted block
+        memcpy(previousBlock, tempBlock, BLOCK_SIZE); // Copy original encrypted block for next iteration
     }
 }
 
 int main() {
-
     printf("1764Snippets\n");
     printf("Crypto XOR Encryption Chain\n");
 
-    /*
-    
-        This snippet demonstrates a XOR encryption which is quite basic as it can be easily reversed by XORing with the same key which makes it symmetric. Even the chained version of it in the second part of the snippet should not be used in production but it is at least an implementation using a simplified Cipher Block Chaining (CBC) operation. 
-    */
+    // Demonstrating simple XOR encryption and decryption
+    char simplePlaintext[] = "1764Snippets";
+    char simpleKey[] = "key23";
 
-    char textSimple[] = "1764Snippets";
-    char keySimple[] = "key23";
-
-    printf("Original text: %s\n", textSimple);
-    xorEncrypt(textSimple, keySimple);
+    printf("Original text: %s\n", simplePlaintext);
+    simpleXorEncrypt(simplePlaintext, simpleKey);
     printf("Encrypted text: ");
-    for (int i = 0; i < strlen(textSimple); i++) {
-        printf("%02x", (unsigned char)textSimple[i]);
+    for (int i = 0; i < strlen(simplePlaintext); i++) {
+        printf("%02x", (unsigned char)simplePlaintext[i]);
     }
     printf("\n");
 
     // Decrypting the text (since XOR is reversible)
-    xorEncrypt(textSimple, keySimple);
-    printf("Decrypted text: %s\n", textSimple);
+    simpleXorEncrypt(simplePlaintext, simpleKey);
+    printf("Decrypted text: %s\n", simplePlaintext);
 
+    // Demonstrating XOR Chain Block Encryption and Decryption
+    char complexPlaintext[] = "1764Snippets, the successor to the 42Snippets series/repository, boldly multiplies the ordinary.";
+    const char complexKey[BLOCK_SIZE] = "key12345"; // Ensure this key is exactly BLOCK_SIZE characters
+    int complexTextLength = strlen(complexPlaintext);
 
-    char text[] = "1764Snippets, the successor to the 42Snippets series/repository, boldly multiplies the ordinary.";
-    const char key[BLOCK_SIZE] = "key12345"; // Ensure this is exactly BLOCK_SIZE characters
-    int textLen = strlen(text);
-
-    printf("Original text: %s\n", text);
-    xorChainBlockEncrypt(text, key, textLen);
+    printf("Original text: %s\n", complexPlaintext);
+    xorChainBlockEncrypt(complexPlaintext, complexKey, complexTextLength);
     printf("Encrypted text: ");
-    for (int i = 0; i < textLen; ++i) {
-        printf("%02x", (unsigned char)text[i]);
+    for (int i = 0; i < complexTextLength; ++i) {
+        printf("%02x", (unsigned char)complexPlaintext[i]);
     }
     printf("\n");
 
-    xorChainBlockDecrypt(text, key, textLen);
-    printf("Decrypted text: %s\n", text);
+    xorChainBlockDecrypt(complexPlaintext, complexKey, complexTextLength);
+    printf("Decrypted text: %s\n", complexPlaintext);
 
     return 0;
 }
