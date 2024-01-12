@@ -1,0 +1,8 @@
+---
+- name: Example playbook using Hashi Vault lookup
+  hosts: localhost
+  tasks:
+    - name: Retrieve secret from HashiCorp Vault
+      debug:
+        # msg: "--- 1764Snippets Ansible Lookup ---"
+        msg: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/data/lookuptest token=hvs.810YqnWk6mC2ZTsgpCe3YN1k url=http://vault:8200') }}"
