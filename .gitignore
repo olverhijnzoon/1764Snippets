@@ -5,3 +5,6 @@ coco.names
 .terraform
 .terraform.lock.hcl
 golang/crawler/website/
+*.key
+*.crt
+*.srl
