@@ -28,7 +28,6 @@ clean_go:
 clean_binaries:
 	rm -f ./*X
 
-# Test step using curl
 test: prep
 	curl --cert $(CLIENT_CERT) --key $(CLIENT_KEY) --cacert $(SERVER_CERT) https://localhost:8071
 
