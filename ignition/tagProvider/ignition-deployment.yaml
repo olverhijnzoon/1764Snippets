@@ -25,6 +25,19 @@ spec:
             - "9088"
             - "-s"
             - "9043"
+          env:
+            - name: ACCEPT_IGNITION_EULA
+              value: "Y"
+            - name: IGNITION_EDITION
+              value: "standard"
+            - name: GATEWAY_ADMIN_USERNAME
+              value: admin
+            - name: GATEWAY_ADMIN_PASSWORD
+              value: admin
+          resources:
+            limits:
+              memory: "4Gi"
+              cpu: "8"
           ports:
             - containerPort: 9088
 ...
