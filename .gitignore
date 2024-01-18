@@ -8,3 +8,4 @@ golang/crawler/website/
 *.key
 *.crt
 *.srl
+local_dump*.sql
