@@ -6,4 +6,7 @@ clean_artifactory:
 	kubectl delete -f artifactory-deployment.yaml
 	kubectl delete -f artifactory-service.yaml
 
+logs:
+	kubectl logs deployment/artifactory
+
 # admin : password
