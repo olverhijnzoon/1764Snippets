@@ -10,6 +10,9 @@ clean_ignition:
 	kubectl delete -f ignition-deployment.yaml
 	kubectl delete -f ignition-service.yaml
 
+logs:
+	kubectl logs deployment/ignition-deployment
+
 dump:
 	kubectl exec -it $$(kubectl get pods -l app=ignition -o jsonpath="{.items[0].metadata.name}") -- /bin/sh -c "echo \".dump\" | sqlite3 /usr/local/bin/ignition/data/db/config.idb" > local_dump.sql
 
