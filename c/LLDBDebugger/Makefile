@@ -17,3 +17,7 @@ debug_c:
 
 clean_c:
 	rm -f $(BINARY)
+
+dump_x:
+	# -d disassemble -j section
+	objdump -d -j __text ./$(BINARY)X
