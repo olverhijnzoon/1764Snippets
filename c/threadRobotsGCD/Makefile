@@ -8,3 +8,11 @@ build_c:
 
 clean_c:
 	rm -f $(BINARY)
+
+debug_c:
+	brew install llvm
+	gcc -g -o $(BINARY)X $(BINARY).c
+	lldb ./$(BINARY)X
+	
+	# (lldb) r
+	# (lldb) thread list
