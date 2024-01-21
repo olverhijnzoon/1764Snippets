@@ -16,7 +16,7 @@ cat <<EOF >$snippetname.c
 int main() {
     
     printf("1764Snippets\n");
-    printf("MoreC\n");
+    printf("C $snippetname\n");
     
 }
 EOF
