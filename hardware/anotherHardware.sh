@@ -16,7 +16,7 @@ void setup() {
   delay(1000);
 
   Serial.println("## 1764Snippets");
-  Serial.println("## Hardware Arduino UNO");
+  Serial.println("## Hardware $snippetname");
   pinMode(13, OUTPUT);
 }
 
@@ -34,14 +34,14 @@ INO := anotherHardware.ino
 .PHONY: compile upload clean
 
 upload: compile
-	arduino-cli upload -p $(PORT) --fqbn $(BOARD) $(INO)
+	arduino-cli upload -p \$(PORT) --fqbn \$(BOARD) \$(INO)
 
 compile:
-	arduino-cli compile --fqbn $(BOARD) $(INO)
+	arduino-cli compile --fqbn \$(BOARD) \$(INO)
 
 clean:
-	rm -f $(INO).hex
-	rm -f $(INO).elf
+	rm -f \$(INO).hex
+	rm -f \$(INO).elf
 
 prep:
 	brew install arduino-cli

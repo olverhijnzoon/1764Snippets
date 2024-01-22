@@ -3,7 +3,7 @@ void setup() {
   delay(1000);
 
   Serial.println("## 1764Snippets");
-  Serial.println("## Hardware Arduino UNO");
+  Serial.println("## Hardware anotherHardware");
   pinMode(13, OUTPUT);
 }
 
