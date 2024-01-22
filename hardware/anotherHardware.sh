@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the snippet name
-snippetname="anotherHardware"
+snippetname="arduinoMorse"
 
 # Create the folder
 mkdir "$snippetname"
@@ -29,7 +29,7 @@ EOF
 cat <<EOF >Makefile
 BOARD := arduino:avr:uno
 PORT := /dev/cu.usbmodem1201
-INO := anotherHardware.ino
+INO := $snippetname.ino
 
 .PHONY: compile upload clean
 
