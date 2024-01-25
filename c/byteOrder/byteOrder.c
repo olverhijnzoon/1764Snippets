@@ -41,8 +41,8 @@ int main() {
     // Print the value in hexadecimal format
     printf("netshort = 0x%04x\n", netshort);
     // Output:
-    // hostshort = 0x1389
-    // netshort = 0x8913
+    // hostshort = 0x06e4
+    // netshort = 0xe406
 
     return 0;
 
