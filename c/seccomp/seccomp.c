@@ -8,6 +8,10 @@ int main() {
     
     printf("1764Snippets\n");
     printf("C seccomp\n");
+
+    /*
+        This C code demonstrates the use of seccomp, a Linux kernel feature, to restrict the system calls a process can make for enhanced security. It initializes a seccomp context and sets a default action to terminate the process if a non-permitted syscall is attempted. The code then explicitly allows only three system calls: read(), write(), and exit(), by adding rules to the seccomp context. After these rules are loaded into the kernel using seccomp_load(), the process is confined to using only these allowed syscalls, significantly reducing the surface for potential exploits. This is a basic example of how seccomp can be used to create a more secure, minimal execution environment for a process.
+    */
     
     // Initialize the seccomp context
     scmp_filter_ctx ctx;
