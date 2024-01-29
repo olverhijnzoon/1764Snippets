@@ -12,3 +12,4 @@ golang/crawler/website/
 local_dump*.sql
 tmp/*
 key.json
+tmp
