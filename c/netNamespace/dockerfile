@@ -1,0 +1,21 @@
+# Stage 1: Build the C program
+FROM ubuntu:latest AS builder
+
+RUN apt-get update && apt-get install -y gcc make
+
+WORKDIR /code
+
+COPY . .
+
+RUN make all
+
+# Stage 2: Run the compiled program
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y iproute2
+
+WORKDIR /code
+
+COPY --from=builder /code/netnamespaceX .
+
+CMD ["./netnamespaceX"]
