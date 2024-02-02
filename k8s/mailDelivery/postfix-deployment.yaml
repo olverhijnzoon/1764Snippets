@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postfix-deployment
+  labels:
+    app: postfix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postfix
+  template:
+    metadata:
+      labels:
+        app: postfix
+    spec:
+      containers:
+      - name: postfix
+        image: localhost:31005/postfix:latest
+        ports:
+        - containerPort: 25
+...
