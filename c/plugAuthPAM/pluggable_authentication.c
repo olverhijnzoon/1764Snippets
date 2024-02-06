@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     /*
         Primary aim of Pluggable Authentication Modules (PAM) is to provide a flexible and modular mechanism for authentication and related services, beyond just password-based authentication.
     
-        However, this is snippet password-based as a draft for a PAM snippet.
+        However, this snippet is password-based as a draft for a PAM snippet.
     */
     
     pam_handle_t *pamh = NULL;
