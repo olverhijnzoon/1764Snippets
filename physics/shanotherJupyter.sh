@@ -1,19 +1,12 @@
 #!/bin/bash
 
-if ! command -v jupyter-lab &> /dev/null; then
-    echo "Installing JupyterLab"
-    pip3 install jupyterlab
-else
-    echo "JupyterLab is already installed"
-fi
-
 # for the simpleplot
 pip3 install matplotlib
 
 # scientific
 pip3 install scipy
 
-book_dir="dirac_delta"
+book_dir="anotherJupyterBook"
 mkdir -p "$book_dir"
 
 # call py script to create a notebook
@@ -23,9 +16,14 @@ cd "$book_dir"
 
 # Create Makefile
 cat <<EOF >Makefile
-BOOK=dirac_delta
+BOOK=$book_dir
 run:
 	jupyter-lab \$(BOOK).ipynb
+
+prep:
+	pip3 install jupyterlab
+	jupyter lab build
+
 EOF
 
 # launch JupyterLab with it
