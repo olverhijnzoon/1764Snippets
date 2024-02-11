@@ -1,0 +1,20 @@
+---
+- name: Deploy and check Nginx on Kubernetes
+  hosts: localhost
+  become: false
+  gather_facts: no
+  tasks:
+    - name: Remove Nginx Deployment
+      community.kubernetes.k8s:
+        state: absent
+        kind: Deployment
+        name: nginx
+        namespace: default
+
+    - name: Remove Nginx Service
+      community.kubernetes.k8s:
+        state: absent
+        kind: Service
+        name: nginx-service-status-code
+        namespace: default
+...
