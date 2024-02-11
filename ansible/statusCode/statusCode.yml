@@ -1,0 +1,69 @@
+---
+- name: Deploy and check Nginx on Kubernetes
+  hosts: localhost
+  become: false
+  gather_facts: no
+  tasks:
+    - name: Deploy Nginx Deployment
+      community.kubernetes.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: nginx
+            namespace: default
+            labels:
+              app: nginx
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: nginx
+            template:
+              metadata:
+                labels:
+                  app: nginx
+              spec:
+                containers:
+                  - name: nginx
+                    image: nginx:latest
+                    ports:
+                      - containerPort: 80
+
+    - name: Expose Nginx Deployment
+      community.kubernetes.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: nginx-service-status-code
+            namespace: default
+          spec:
+            selector:
+              app: nginx
+            ports:
+              - protocol: TCP
+                port: 80
+                nodePort: 30176
+            type: NodePort
+
+    - name: Wait for Nginx to be available
+      uri:
+        url: "http://localhost:30176"
+        method: GET
+        return_content: yes
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 30
+      delay: 1
+      ignore_errors: yes
+
+    - name: Connect to web server
+      ansible.builtin.uri:
+        url: "http://localhost:30176"
+        return_content: yes
+        status_code: 200
+...
