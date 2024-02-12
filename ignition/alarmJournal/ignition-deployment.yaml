@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ignition-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ignition
+  template:
+    metadata:
+      labels:
+        app: ignition
+    spec:
+      containers:
+        - name: ignition-test
+          image: localhost/ignition-tags:20240115
+          args:
+            - "-n"
+            - "docker-test"
+            - "-a"
+            - "localhost"
+            - "-h"
+            - "9088"
+            - "-s"
+            - "9043"
+          env:
+            - name: ACCEPT_IGNITION_EULA
+              value: "Y"
+            - name: IGNITION_EDITION
+              value: "standard"
+            - name: GATEWAY_ADMIN_USERNAME
+              value: admin
+            - name: GATEWAY_ADMIN_PASSWORD
+              value: admin
+          resources:
+            limits:
+              memory: "8Gi"
+              cpu: "4"
+          ports:
+            - containerPort: 9088
+...

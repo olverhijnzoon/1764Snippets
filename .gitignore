@@ -10,6 +10,7 @@ golang/crawler/website/
 *.crt
 *.srl
 local_dump*.sql
+local_journal_dump*.sql
 tmp/*
 key.json
 tmp
