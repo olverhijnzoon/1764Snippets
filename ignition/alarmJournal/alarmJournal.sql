@@ -1,5 +1,5 @@
 PRAGMA table_info(ALARMJOURNALS);
-INSERT INTO ALARMJOURNALS VALUES(1,'AlarmJournalInternal1764','LOCAL',1,NULL,0);
+INSERT INTO ALARMJOURNALS VALUES(0,'AlarmJournalInternal1764','LOCAL',1,NULL,0);
 
 /* local_journal_dump.sql
 PRAGMA foreign_keys=OFF;
@@ -20,7 +20,9 @@ COMMIT;
 
 -- some further notes
 
--- INSERT INTO TAGCONFIG VALUES('f5d958ef-33c4-4aaa-a20d-7d0044181384',0,NULL,replace('{\n  "valueSource": "memory",\n  "alarms": [\n    {\n      "name": "Alarm1764",\n      "priority": "High"\n    }\n  ],\n  "name": "Tag1764",\n  "value": 1764,\n  "tagType": "AtomicTag"\n}','\n',char(10)),1,'Tag1764');
+/*
+INSERT INTO TAGCONFIG VALUES('f5d958ef-33c4-4aaa-a20d-7d0044181384',0,NULL,replace('{\n  "valueSource": "memory",\n  "alarms": [\n    {\n      "name": "Alarm1764",\n      "priority": "High"\n    }\n  ],\n  "name": "Tag1764",\n  "value": 1764,\n  "tagType": "AtomicTag"\n}','\n',char(10)),1,'Tag1764');
+*/
 
 -- PRAGMA table_info(TAGCONFIG);
 
