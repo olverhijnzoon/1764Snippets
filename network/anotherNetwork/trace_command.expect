@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+spawn telnet localhost 5001
+
+expect "PC1>"
+send "trace 10.1.1.2\r"
+expect "PC1>"
+
+send "quit\r"
+expect eof
