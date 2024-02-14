@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rhel9-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rhel9
+  template:
+    metadata:
+      labels:
+        app: rhel9
+    spec:
+      containers:
+        - name: rhel9
+          image: rhel9-basic:20240214
+          env:
+            - name: ANYENV
+              value: "1764"
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+...
