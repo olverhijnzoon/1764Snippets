@@ -1,2 +1,3 @@
 physics/** linguist-documentation
 *.ipynb linguist-documentation
+*.gns3 linguist-documentation
