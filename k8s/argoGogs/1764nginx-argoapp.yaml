@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 1764nginx
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: http://gogs.argocd.svc.cluster.local:3000/test/1764snippets_inception.git
+    targetRevision: main
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated: {}
