@@ -1,0 +1,20 @@
+---
+- name: Router Information Draft
+  hosts: mikrotik
+  gather_facts: no
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: routeros
+    ansible_user: admin
+    ansible_password: test1764
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
+  tasks:
+    - name: Gather IP addresses
+      community.routeros.command:
+        commands: "/ip address print"
+      register: ip_addresses
+
+    - name: Display
+      debug:
+        msg: "{{ ip_addresses.stdout_lines }}"
