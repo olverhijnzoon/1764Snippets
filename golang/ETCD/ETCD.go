@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"time"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
@@ -41,7 +41,9 @@ func main() {
 	fmt.Println("## Golang ETCD")
 
 	/*
-		This 42Snippet demonstrates the usage of etcd in a Go program within a Kubernetes environment. When using "make etcd-demo" an etcd cluster is applied and this Golang program is executed. A demo configuration is setup from a JSON file and this Go program also watches for changes to this configuration in etcd. A delayed change is triggered by "make etcd-demo" and when this change is detected, the new configuration is logged and the program exits, demonstrating a basic use case of etcd for configuration management.
+		This 1764Snippet demonstrates the usage of etcd in a Go program within a Kubernetes environment. When using "make etcd-demo" an etcd cluster is applied and this Golang program is executed. A demo configuration is setup from a JSON file and this Go program also watches for changes to this configuration in etcd. A delayed change is triggered by "make etcd-demo" and when this change is detected, the new configuration is logged and the program exits, demonstrating a basic use case of etcd for configuration management.
+
+		This is a slightly modified version of a 42Snippets snippet.
 	*/
 
 	cli, err := clientv3.New(clientv3.Config{
@@ -54,7 +56,7 @@ func main() {
 	defer cli.Close()
 
 	// Read the initial configuration from a JSON file
-	configBytes, err := ioutil.ReadFile("config.json")
+	configBytes, err := os.ReadFile("config.json")
 	if err != nil {
 		log.Fatal(err)
 	}

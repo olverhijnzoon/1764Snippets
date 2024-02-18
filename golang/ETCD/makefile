@@ -9,9 +9,6 @@ init:
 	kubectl exec -it etcd-1 -- etcdctl get my-key
 	kubectl exec -it etcd-2 -- etcdctl get my-key
 
-delete:
-	kubectl delete -f etcd.yaml
-
 describe:
 	kubectl describe statefulset etcd
 
@@ -31,7 +28,7 @@ build-go:
 	go build -o $(BINARY)X $(BINARY).go
 
 run-go:
-	sleep 4
+	sleep 10
 	kubectl port-forward svc/etcd 2379:2379 & 
 	./$(BINARY)X &
 
@@ -44,8 +41,8 @@ change-config:
 
 etcd-demo: build-go apply run-go change-config
 
-clean-go:
-	rm -f $(BINARY).go
+delete:
+	kubectl delete -f etcd.yaml
 
 clean-binaries:
 	rm -f ./*X
