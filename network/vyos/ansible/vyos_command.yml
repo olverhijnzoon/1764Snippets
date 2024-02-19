@@ -1,0 +1,19 @@
+---
+- name: Gather vyos info
+  hosts: vyos
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: vyos
+    ansible_user: vyos
+    ansible_password: vyos
+  tasks:
+    - name: hostname on VyOS machine
+      vyos_command:
+        commands:
+          - show host name
+          - show interfaces ethernet eth0
+      register: result
+
+    - debug:
+        var: result.stdout
+...
