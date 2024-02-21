@@ -1,0 +1,32 @@
+---
+- name: configure VyOS
+  hosts: vyos
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: vyos
+    ansible_user: vyos
+    ansible_password: vyos
+    snippet: 1764Snippets
+  tasks:
+    - name: configurable backup path
+      vyos.vyos.vyos_config:
+        backup: yes
+        backup_options:
+          filename: backupVyOS.cfg
+          dir_path: /tmp
+
+    - name: configure services / protocols
+      vyos.vyos.vyos_config:
+        lines:
+          - set service lldp
+          - delete protocols ospf
+
+    - name: interfaces
+      vyos.vyos.vyos_config:
+        lines:
+          - set interface ethernet eth1 address 172.16.176.3/24
+    
+    - name: render a Jinja2 template onto the VyOS
+      vyos.vyos.vyos_config:
+        src: vyos_template.j2
+...
