@@ -20,5 +20,17 @@
 
     - name: Dump TFTP output
       ansible.builtin.debug:
-        msg: '{{ TFTP_printout }}'
+        msg: '{{ tftp_printout }}'
+
+    - name: Collect all TFTP settings
+      community.routeros.api:
+        hostname: 172.16.176.134
+        username: admin
+        password: admin
+        path: "ip tftp settings"
+      register: tftp_settings_printout
+
+    - name: Dump TFTP settings output
+      ansible.builtin.debug:
+        msg: '{{ tftp_settings_printout }}'
 ...
