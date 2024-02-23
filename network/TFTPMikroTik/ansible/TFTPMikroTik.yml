@@ -13,8 +13,8 @@
     - name: Collect all TFTP facts from the device
       community.routeros.api:
         hostname: 172.16.176.134
-        username: admin
-        password: admin
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
         path: "ip tftp"
       register: tftp_printout
 
@@ -25,8 +25,8 @@
     - name: Collect all TFTP settings
       community.routeros.api:
         hostname: 172.16.176.134
-        username: admin
-        password: admin
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
         path: "ip tftp settings"
       register: tftp_settings_printout
 
