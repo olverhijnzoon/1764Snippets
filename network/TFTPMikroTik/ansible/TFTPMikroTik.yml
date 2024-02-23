@@ -1,0 +1,24 @@
+---
+- name: Router Information Draft
+  hosts: mikrotik
+  gather_facts: no
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: routeros
+    ansible_user: admin
+    ansible_password: admin
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
+  tasks:
+    - name: Collect all TFTP facts from the device
+      community.routeros.api:
+        hostname: 172.16.176.134
+        username: admin
+        password: admin
+        path: "ip tftp"
+      register: tftp_printout
+
+    - name: Dump TFTP output
+      ansible.builtin.debug:
+        msg: '{{ TFTP_printout }}'
+...
