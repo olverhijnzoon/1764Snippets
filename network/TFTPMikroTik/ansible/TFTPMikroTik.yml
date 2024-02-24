@@ -22,11 +22,11 @@
       ansible.builtin.debug:
         msg: '{{ tftp_settings_printout }}'
 
-    - name: Set TFTP settings
+    # not idempotent like this
+    - name: Add TFTP item
       community.routeros.command:
         commands:
-          # - /ip tftp add enabled=yes ip-addresses=172.16.176.0/24 req-filename=startup real-filename=ignite.sh allow=yes read-only=yes
-          - /ip tftp add req-filename=startup real-filename=ignite.sh allow=yes read-only=yes
+          - /ip tftp add req-filename=startup real-filename=ignite.sh allow=yes read-only=yes ip-addresses=172.16.176.0/24
 
     - name: Collect all TFTP facts from the device
       community.routeros.api:
