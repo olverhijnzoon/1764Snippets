@@ -10,18 +10,6 @@
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
   tasks:
-    - name: Collect all TFTP facts from the device
-      community.routeros.api:
-        hostname: 172.16.176.134
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        path: "ip tftp"
-      register: tftp_printout
-
-    - name: Dump TFTP output
-      ansible.builtin.debug:
-        msg: '{{ tftp_printout }}'
-
     - name: Collect all TFTP settings
       community.routeros.api:
         hostname: 172.16.176.134
@@ -33,4 +21,22 @@
     - name: Dump TFTP settings output
       ansible.builtin.debug:
         msg: '{{ tftp_settings_printout }}'
+
+    - name: Set TFTP settings
+      community.routeros.command:
+        commands:
+          # - /ip tftp add enabled=yes ip-addresses=172.16.176.0/24 req-filename=startup real-filename=ignite.sh allow=yes read-only=yes
+          - /ip tftp add req-filename=startup real-filename=ignite.sh allow=yes read-only=yes
+
+    - name: Collect all TFTP facts from the device
+      community.routeros.api:
+        hostname: 172.16.176.134
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        path: "ip tftp"
+      register: tftp_printout
+
+    - name: Dump TFTP output
+      ansible.builtin.debug:
+        msg: '{{ tftp_printout }}'
 ...
