@@ -13,7 +13,7 @@
     # idempotent with custom module in lib/ but its quite raw
     - name: Set hostname
       routeros_set_hostname:
-        hostname: router17642
+        hostname: router1764
         host: 172.16.176.134
         username: "{{ ansible_user }}"
         password: "{{ ansible_password }}"
