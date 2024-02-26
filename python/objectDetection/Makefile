@@ -1,12 +1,11 @@
-BINARY=objectDetection
+BINARY=objectDetectionVideo
 
 run_py: build_py
 	python3 $(BINARY).py
 
 build_py:
-	pip3 install opencv-python
-	pip3 install pyautogui
-	echo "Python script ready to be run"
+	pip3 install opencv-python --break-system-packages
+	pip3 install pyautogui --break-system-packages
 
 clean_py:
 	rm -f $(BINARY).py
