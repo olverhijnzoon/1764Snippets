@@ -1,0 +1,31 @@
+---
+- name: configure VyOS
+  hosts: vyos
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: vyos
+    ansible_user: vyos
+    ansible_password: vyos
+    snippet: 1764Snippets
+  tasks:
+    - name: Merge the provided config with live config
+      vyos.vyos.vyos_firewall_interfaces:
+        config:
+        - access_rules:
+          - afi: ipv4
+            rules:
+            - name: INBOUND
+              direction: in
+            - name: OUTBOUND
+              direction: out
+            - name: LOCAL_NET_FILTER
+              direction: local
+          name: eth1
+        state: merged
+  
+    # - name: Delete firewall interface
+    #  vyos.vyos.vyos_firewall_interfaces:
+    #    config:
+    #    - name: eth1
+    #    state: deleted
+...
