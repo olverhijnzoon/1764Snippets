@@ -27,3 +27,6 @@ vet:
 
 ps:
 	ps aux | grep modbus
+
+kill:
+	pkill -f ./$(SERVER_BINARY)X

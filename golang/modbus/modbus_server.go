@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 
 	modbus "github.com/advancedclimatesystems/goldfish"
@@ -20,6 +21,10 @@ func handleRegisters(unitID, start, quantity int) ([]modbus.Value, error) {
 }
 
 func main() {
+
+	fmt.Println("# 1764Snippets")
+	fmt.Println("## Golang Modbus Server")
+
 	addr := flag.String("addr", ":502", "address to listen on.")
 	flag.Parse()
 

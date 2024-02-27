@@ -7,17 +7,19 @@ import (
 )
 
 func main() {
-	// Create a Modbus TCP client
+
+	fmt.Println("# 1764Snippets")
+	fmt.Println("## Golang Modbus Client")
+
 	client := modbus.TCPClient("localhost:502")
 
-	results, err := client.ReadHoldingRegisters(0, 20)
+	results, err := client.ReadHoldingRegisters(3, 5)
 	if err != nil {
 		fmt.Println("Failed to read holding registers:", err)
 		return
 	}
 
-	// Print the results
 	for i, value := range results {
-		fmt.Printf("Register %d: %v; ", i+1, value)
+		fmt.Printf("Register %d: %v\n", i+1, value)
 	}
 }
