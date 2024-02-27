@@ -11,6 +11,7 @@ build_server:
 
 run_server:
 	./$(SERVER_BINARY)X &
+	sleep 5
 
 run_client:
 	./$(CLIENT_BINARY)X
@@ -24,4 +25,5 @@ clean_binaries:
 vet:
 	go vet ./...
 
-.PHONY: build_client build_server run_server run_client clean clean_binaries
+ps:
+	ps aux | grep modbus
