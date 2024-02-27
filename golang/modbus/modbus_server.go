@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 
 	modbus "github.com/advancedclimatesystems/goldfish"
@@ -20,14 +19,6 @@ func handleRegisters(unitID, start, quantity int) ([]modbus.Value, error) {
 	return registers, nil
 }
 
-func handleWriteRegisters(unitID, start int, values []modbus.Value) error {
-
-	for i, value := range values {
-		fmt.Printf("[%d]: %d\n", i+start, value.Get())
-	}
-	return nil
-}
-
 func main() {
 	addr := flag.String("addr", ":502", "address to listen on.")
 	flag.Parse()
@@ -38,7 +29,6 @@ func main() {
 	}
 
 	server.Handle(modbus.ReadHoldingRegisters, modbus.NewReadHandler(handleRegisters))
-	server.Handle(modbus.WriteSingleRegister, modbus.NewWriteHandler(handleWriteRegisters, modbus.Signed))
 
 	server.Listen()
 }
