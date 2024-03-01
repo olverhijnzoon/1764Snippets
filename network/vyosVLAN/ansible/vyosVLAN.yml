@@ -1,0 +1,17 @@
+---
+- name: configure VyOS
+  hosts: vyos
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: vyos
+    ansible_user: vyos
+    ansible_password: vyos
+    snippet: 1764Snippets
+  tasks:
+    - name: Create VLAN
+      vyos.vyos.vyos_vlan:
+        vlan_id: 1764
+        name: vlan-1764
+        interfaces: eth1
+        state: absent
+...
