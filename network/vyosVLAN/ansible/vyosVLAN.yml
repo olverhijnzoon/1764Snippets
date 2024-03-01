@@ -14,4 +14,11 @@
         name: vlan-1764
         interfaces: eth1
         state: absent
+    
+    - name: Configure virtual interface address
+      vyos.vyos.vyos_vlan:
+        vlan_id: 1764
+        interfaces: eth1
+        # 172.16.176.16/28 .17-.30
+        address: 172.16.176.17/28
 ...
