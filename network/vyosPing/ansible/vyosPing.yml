@@ -1,0 +1,37 @@
+---
+- name: configure VyOS
+  hosts: vyos
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: vyos
+    ansible_user: vyos
+    ansible_password: vyos
+    snippet: 1764Snippets
+  tasks:
+    - name: autoping 172.16.176.3
+      vyos.vyos.vyos_ping:
+        dest: 172.16.176.3
+
+    - name: setting source and time-to-live set
+      vyos.vyos.vyos_ping:
+        dest: 172.16.176.3
+        source: eth0
+        ttl: 128
+
+    - name: setting interval
+      vyos.vyos.vyos_ping:
+        dest: 172.16.176.3
+        # seconds until consecutive ping 
+        interval: 3
+        # expected result is success (present) or fail (absent)
+        state: present
+
+    - name: setting count and source
+      vyos.vyos.vyos_ping:
+        dest: 172.16.176.3
+        source: eth0
+        # default is 5 for number of packets sent
+        count: 20
+        # ping packet(s) size in bytes
+        size: 512
+...
