@@ -1,11 +1,11 @@
-run:
+run: context
 	tilt up
 
-context:
+context: create
 	kubectl cluster-info --context kind-nginx-test-cluster
 
-create-kind-cluster: install
-	kind create cluster --name nginx-test-cluster
+create: install
+	kind create cluster --name nginx-test-cluster --config cluster.yaml
 
 install:
 	brew install kind
