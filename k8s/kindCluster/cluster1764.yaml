@@ -9,4 +9,8 @@ nodes:
 - role: worker
   image: kindest/node:v1.25.3
 - role: worker
+
+networking:
+  apiServerAddress: "172.18.0.1"
+  podSubnet: "10.245.0.0/16"
 ...

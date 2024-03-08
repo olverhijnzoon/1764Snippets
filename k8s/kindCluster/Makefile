@@ -1,7 +1,7 @@
-context: create
+context:
 	kubectl cluster-info --context kind-cluster1764
 
-create: install
+create:
 	kind create cluster --name cluster1764 --config cluster1764.yaml
 
 install:
@@ -9,4 +9,4 @@ install:
 	open -a Docker
 
 clean:
-	kind delete cluster --name kind-cluster1764
+	kind delete cluster --name cluster1764
