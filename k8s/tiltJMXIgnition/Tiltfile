@@ -1,2 +1,7 @@
-k8s_yaml('ignition-deployment.yaml')
-k8s_yaml('ignition-service.yaml')
+yaml = helm(
+  './helm',
+  name='jmxIgnition',
+  namespace='default',
+  values=['./helm/values.yaml']
+  )
+k8s_yaml(yaml)
