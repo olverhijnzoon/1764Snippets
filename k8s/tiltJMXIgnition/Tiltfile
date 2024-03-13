@@ -1,6 +1,6 @@
 yaml = helm(
   './helm',
-  name='jmxIgnition',
+  name='jmx-ignition',
   namespace='default',
   values=['./helm/values.yaml']
   )
