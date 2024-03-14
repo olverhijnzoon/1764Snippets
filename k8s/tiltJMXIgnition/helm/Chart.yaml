@@ -1,6 +1,0 @@
-apiVersion: v2
-name: jmx-integration
-description: A Helm chart for JXM Ignition
-type: application
-version: 0.1.0
-appVersion: "8.0"

@@ -1,7 +1,0 @@
-yaml = helm(
-  './helm',
-  name='jmx-ignition',
-  namespace='default',
-  values=['./helm/values.yaml']
-  )
-k8s_yaml(yaml)
