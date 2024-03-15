@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "grafana-chart.fullname" . }}
+  labels:
+    app: {{ template "grafana-chart.fullname" . }} 
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "grafana-chart.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "grafana-chart.fullname" . }} 
+    spec:
+      containers:
+        - name: grafana
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: {{ .Values.service.port }}

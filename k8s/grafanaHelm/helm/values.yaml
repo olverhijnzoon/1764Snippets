@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: grafana/grafana
+  tag: 9.0.0
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 3000
+  protocol: TCP
+  targetPort: 3000
+  nodePort: 30088
+
+ingress:
+  enabled: false
+
+persistence:
+  enabled: false
+
+config:
+  datasources: {}
+  dashboards: {}
