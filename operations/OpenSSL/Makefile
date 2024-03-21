@@ -11,3 +11,6 @@ wildrun:
 
 clean:
 	rm -rf ./$(CERTS_DIR)
+
+speed:
+	openssl speed
