@@ -16,3 +16,10 @@ key.json
 tmp
 *.qcow2
 **/certs
+*.o
+*.exe
+*.out
+*.DS_Store
+*.swp
+zig/CalendarEventCreator/tmp/**
+zig/CalendarEventCreator/calendar_event_creator
