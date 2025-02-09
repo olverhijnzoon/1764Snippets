@@ -1,0 +1,7 @@
+ADRP is designed to efficiently load the base address of a 4KB page containing a label into a register. It's crucial for position-independent code (PIC) in ARM64, where you need to access data at a known offset relative to your code, but without knowing the absolute address at compile time. The "PC-relative" part is key. ADRP calculates the address based on the Program Counter (PC), which points to the current instruction being executed. This makes the code relocatable. ADRP works with 4KB pages. This means it gives you the address of the start of the 4KB page where your label resides. A 4KB page boundary occurs every 4096 bytes (0x1000 bytes). The offset from the current instruction's page to the target page can be within ±4GB. This is a large range, allowing you to access data located reasonably far away in memory, relative to your code. ADRP writes the calculated 4KB page base address into the destination register Xd. The lower 12 bits of the result are always zeroed out because it's a page base address (4KB = 2^12 bytes).
+
+(lldb) b main
+(lldb) run
+(lldb) register read x0
+(lldb) stepi
+(lldb) register read x0
