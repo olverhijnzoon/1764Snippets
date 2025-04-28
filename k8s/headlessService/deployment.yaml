@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: headless-service-deployment
+  labels:
+    component: headless-service-1764
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: headless-service-1764
+  template:
+    metadata:
+      labels:
+        component: headless-service-1764
+    spec:
+      containers:
+        - name: headlessservice1764
+          image: localhost:31005/headlessservice
+          ports:
+          - containerPort: 14269
+            name: app-port
+...
